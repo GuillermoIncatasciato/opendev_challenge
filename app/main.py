@@ -24,39 +24,21 @@ def read_students(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 
 @app.get("/students/{student_id}")
 def read_student(student_id: int, db: Session = Depends(get_db)):
-    db_student_info = crud.get_student_info(db, student_id)
-    if db_student_info is None:
+    student = crud.get_student_info(db, student_id)
+    if student is None:
         raise HTTPException(status_code=404, detail="Student not found")
-    return db_student_info
+    return student
 
 @app.post("/students/", status_code=status.HTTP_201_CREATED)
 def create_student(student_info: schemas.StudentInfoBase, db: Session = Depends(get_db)):
+    student_with_same_email = crud.get_student_by_email(db, email=student_info.email)
+    if student_with_same_email:
+        raise HTTPException(status_code=400, detail="Email already registred")
+    
+    subjects_ids = {s.subject_id for s in student_info.subjects}
+    if not crud.verify_subjects_ids(db, subjects_ids):
+        raise HTTPException(status_code=400, detail="Some Subject id is invalid")
+    
     student = crud.insert_student_info(db, student_info)
-    return { "id ": student.id, "success": True}
-    
-    
 
-
-"""
-@app.post("/students/")
-def create_student(student: schemas.StudentBase, db : Session = Depends(get_db)):
-    return crud.create_student(db, student)
-
-@app.get("/students/")
-def read_students(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    students = crud.get_students(db, skip=skip, limit=limit)
-    return students
-
-@app.get("/students/{student_id}")
-def read_student(student_id: int, db: Session = Depends(get_db)):
-    db_student = crud.get_student(db, student_id)
-    if db_student is None:
-        raise HTTPException(status_code=404, detail="Student not found")
-    return db_student
-
-"""
-@app.get("/health-check/")
-def check():
-    return {"success": True}
-
-
+    return {"student_id": student.id, "success": True}
