@@ -4,11 +4,12 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 path = os.path.dirname(os.path.abspath(__file__))
-SQLALCHEMY_DATABASE_URL = "sqlite:///" + path + "/sql_app.db"
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
+#SQLALCHEMY_DATABASE_URL = "sqlite:///" + path + "/sql_app.db"
+SQLALCHEMY_DATABASE_URL = "postgresql+pg8000://postgres:Mypassword1234@db/postgres"
+
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABASE_URL, #connect_args={"check_same_thread": False}
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

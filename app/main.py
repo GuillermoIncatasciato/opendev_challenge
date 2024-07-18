@@ -20,7 +20,14 @@ def get_db():
 @app.get("/students/")
 def read_students(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     students = crud.get_students_info(db, skip=skip, limit=limit)
-    return students
+    count = crud.get_students_count(db)   
+    paginated_students = {
+        "items": [student.__dict__ for student in students],
+        "skip": skip,
+        "limit": limit,
+        "total": count}
+
+    return paginated_students
 
 @app.get("/students/{student_id}")
 def read_student(student_id: int, db: Session = Depends(get_db)):
@@ -41,4 +48,4 @@ def create_student(student_info: schemas.StudentInfoBase, db: Session = Depends(
     
     student = crud.insert_student_info(db, student_info)
 
-    return {"student_id": student.id, "success": True}
+    return {"student_id": student.id}
