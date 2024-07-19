@@ -44,7 +44,7 @@ def create_student(student_info: schemas.StudentInfoBase, db: Session = Depends(
     
     subjects_ids = {s.subject_id for s in student_info.subjects}
     if not crud.verify_subjects_ids(db, subjects_ids):
-        raise HTTPException(status_code=400, detail="Some Subject id is invalid")
+        raise HTTPException(status_code=400, detail="Invalid Subject ids")
     
     student = crud.insert_student_info(db, student_info)
 

@@ -15,9 +15,6 @@ class SubjectInfoBase(BaseModel):
     enrollment_year : int
     times_taken: int
 
-class SubjectInfo(SubjectInfoBase):
-    student_id : int
- 
 class StudentInfoBase(StudentBase):
     subjects: list[SubjectInfoBase]
 
@@ -28,15 +25,6 @@ class StudentInfoBase(StudentBase):
             raise ValueError("Subjects should be different")
         return value
     
-class StudentInfo(Student):
-    subjects: list[SubjectInfo]
-
-class PaginatedStudentsInfo(BaseModel):
-    items: list[StudentInfo]
-    skip: int
-    limit: int
-    total: int
-
 class Subject(BaseModel):
     name: str
     degree_id: int
