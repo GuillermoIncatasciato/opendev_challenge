@@ -18,7 +18,7 @@ Este es un proyecto de API REST construido con [FastAPI](https://fastapi.tiangol
 2. **Construye y corre los contenedores**
 
     ```bash
-    export POSTGRES_PASSWORD=example_password
+    export POSTGRES_PASSWORD=TestPassword4321
     docker compose up
     ```
 
