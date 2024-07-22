@@ -35,11 +35,23 @@ def get_students(db: Session, skip: int = 0, limit: int = 100):
 def get_students_count(db: Session):
     return db.query(models.Student).count()
 
-def get_subjects_by_id(db: Session, ids: set):
+def get_degrees(db: Session):
+    return db.query(models.Degree).all()
+
+def get_degree(db: Session, degree_id: int):
+    return db.query(models.Degree).filter(models.Degree.id == degree_id).first()
+
+def get_degree_subjects(db: Session, degree_id: int):
+    return db.query(models.Subject).filter(models.Subject.degree_id == degree_id).all()
+
+def get_subjects(db :Session):
+    return db.query(models.Subject).all()
+
+def get_subjects_by_ids(db: Session, ids: set):
     return db.query(models.Subject).filter(models.Subject.id.in_(ids)).all()
 
 def verify_subjects_ids(db: Session, ids: set):
-    existing_ids = {subject.id for subject in get_subjects_by_id(db, ids)}
+    existing_ids = {subject.id for subject in get_subjects_by_ids(db, ids)}
     return ids == existing_ids
 
 def insert_student_info(db: Session, student_info: schemas.StudentInfoBase):

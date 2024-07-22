@@ -27,7 +27,7 @@ class Degree(Base):
     __tablename__ = "degrees"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, index=True)
+    name = Column(String, unique=True, index=True)
 
 class StudentSubject(Base):
     __tablename__ = "students_subjects"

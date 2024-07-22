@@ -49,3 +49,19 @@ def create_student(student_info: schemas.StudentInfoBase, db: Session = Depends(
     student = crud.insert_student_info(db, student_info)
 
     return {"student_id": student.id}
+
+@app.get("/subjects/")
+def read_degrees(db: Session = Depends(get_db)):
+    return crud.get_subjects(db)
+
+@app.get("/degrees/")
+def read_degrees(db: Session = Depends(get_db)):
+    return crud.get_degrees(db)
+
+@app.get("/degrees/{degree_id}/subjects")
+def read_degrees(degree_id: int, db: Session = Depends(get_db)):
+    degree = crud.get_degree(db, degree_id)
+    if degree is None:
+        raise HTTPException(status_code=404, detail="Degree not found")
+    return crud.get_degree_subjects(db, degree_id)
+

@@ -18,20 +18,19 @@ Este es un proyecto de API REST construido con [FastAPI](https://fastapi.tiangol
 2. **Construye y corre los contenedores**
 
     ```bash
+    export POSTGRES_PASSWORD=example_password
     docker compose up
     ```
 
     Este comando construirá las imágenes necesarias y levantará los contenedores definidos en el archivo `docker-compose.yml`.
 
-3. **Agregar datos de prueba (Opcional)**
+3. **Agregar datos de prueba**
 
     Una vez que los contenedores estén corriendo, agrega datos de prueba ejecutando el siguiente comando:
 
     ```bash
-    docker exec -it opendev_challenge-mycontainer python data_seeder.py
+    docker compose exec -it backend python data_seeder.py
     ```
-
-    Asegúrate de que el nombre del contenedor (`opendev_challenge-mycontainer`) coincida con el del contenedor en ejecución.
 
 ## Uso
 
@@ -39,11 +38,28 @@ Una vez que los contenedores estén corriendo, la API estará disponible en `htt
 
 ### Rutas de la API
 
-- **GET** `/students/` - Obtener la lista de los alumnos y sus materias inscriptas.
 - **POST** `/students/` - Crea un nuevo estudiante y registra las materias que cursa.
-- **GET** `/students/{student_id}` - Obtener detalles de un alumno específico.
 
-Para ver una lista completa de rutas y sus especificaciones, puedes consultar la documentación automática generada por FastAPI en `http://localhost:80/docs`.
+  **Descripción de los campos del Body:**
+
+  - `name`: *string* - Nombre completo.
+  - `email`: *string* - Correo electrónico.
+  - `address`: *string* - Dirección.
+  - `phone`: *integer* - Número de teléfono.
+  - `subjects`: *array* - Lista de materias que el estudiante está cursando.
+    - `subject_id`: *integer* - Id de la materia.
+    - `enrollment_year`: *integer* - Año en el que el estudiante se inscribió en la materia.
+    - `times_taken`: *integer* - Número de veces que el estudiante ha cursado la materia.
+
+
+- **GET** `/students/` - Obtener la lista de los alumnos y sus materias inscriptas.
+- **GET** `/students/{student_id}` - Obtener detalles de un alumno específico.
+- **GET** `/subjects/` - Obtener la lista completa de materias.
+- **GET** `/degrees/` - Obtener la lista de carreras.
+- **GET** `/degrees/{degree_id}/subjects` - Obtener la lista de materias de la carrera con id `degree_id`.
+
+Para ver una lista completa de rutas y sus especificaciones, puedes consultar la documentación automática generada por FastAPI en [http://localhost:80/docs](http://localhost:80/docs).
+
 
 ## Ejemplos de solicitudes con `curl`
 
@@ -51,7 +67,7 @@ Para obtener una lista de estudiantes desde el endpoint `/students` con paginaci
 
 ```bash
 curl -X 'GET' \
-'http://localhost/students/?skip=2&limit=6' \
+'http://localhost/students/?skip=5&limit=10' \
 -H 'accept: application/json'
 ```
 Para obtener la información de un único estudiante desde el endpoint `/students`:
@@ -81,9 +97,8 @@ curl -X 'POST' \
     }'
 ```
 
-(Nota: los ids de materias validos despues del correr data_seeder.py son del 1 al 15).
-- La request no sera valida si los subjects_id se repiten en el campo sujects.
-- El estudiante no se cargara si el email ya ha sido registrado.
-- Se verificará que los ids de las materias sean validos (esten cargados en la base de datos).
+**Notas importantes para la carga de un estudiante:**
 
-
+- La solicitud será inválida si alguno de los `subject_id` proporcionados en el cuerpo de la solicitud no existe en la base de datos.
+- El estudiante no será registrado si el correo electrónico (`email`) ya está asociado a otro estudiante en la base de datos.
+- Todos los `subject_id` en el cuerpo de la solicitud deben ser diferentes.
