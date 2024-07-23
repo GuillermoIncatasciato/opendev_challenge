@@ -10,6 +10,10 @@ COPY ./data_seeder.py /code/data_seeder.py
 
 COPY ./app /code/app
 
-CMD ["fastapi", "run", "app/main.py", "--port", "80"]
+COPY ./docker-entrypoint.sh /code/docker-entrypoint.sh
+
+RUN chmod a+x docker-entrypoint.sh
+
+CMD ["./docker-entrypoint.sh"]
 
 

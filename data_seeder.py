@@ -1,5 +1,5 @@
-from app.database import SessionLocal
-from app import crud, schemas
+from app import schemas
+from app.controllers import get_controller
 
 degree_subjects = {
     "Ingeniería en Computación": [
@@ -283,25 +283,20 @@ students = [
 ]
 
 
-def load_data(degree_subjects, students):
-    db = SessionLocal()
-    try:
-        for degree, subjects in degree_subjects.items():
+def create_data(degree_subjects, students):
+    controller = get_controller()
+    for degree, subjects in degree_subjects.items():
 
-            degree_db = crud.create_degree(db, schemas.Degree(name=degree))
+        degree_db = controller.create_degree(schemas.Degree(name=degree))
 
-            for subject in subjects: 
-                crud.create_subject(db, schemas.Subject(name=subject, degree_id=degree_db.id))
+        for subject in subjects: 
+            controller.create_subject(schemas.Subject(name=subject, degree_id=degree_db.id))
 
-        for student in students:
-            crud.insert_student_info(db, schemas.StudentInfoBase(**student))
-    
-        print("Data loaded successfully.")
+    for student in students:
+        controller.insert_student_info(schemas.StudentInfoBase(**student))
 
-    except Exception as e:
-        db.rollback()
-        print("Error loading data.")
-    finally:
-        db.close()
+    print("Data loaded successfully.")
 
-load_data(degree_subjects, students)
+
+
+create_data(degree_subjects, students)
