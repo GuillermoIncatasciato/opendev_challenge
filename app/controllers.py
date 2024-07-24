@@ -1,5 +1,5 @@
 from . import models, schemas
-from .repository import Repository
+from .database import Repository
 
 
 _CONTROLLER = None
