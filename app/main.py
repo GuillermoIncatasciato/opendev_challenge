@@ -1,11 +1,8 @@
 from fastapi import Depends, FastAPI, HTTPException, status
-from . import models, schemas
+from . import schemas
 from .controllers import Controller, get_controller
-from .database import engine
 
 app = FastAPI()
-
-models.Base.metadata.create_all(bind=engine)
 
 @app.get("/students/")
 def read_students(skip: int = 0, limit: int = 100, controller: Controller = Depends(get_controller)):
@@ -50,8 +47,8 @@ def read_degrees(controller: Controller = Depends(get_controller)):
 
 @app.get("/degrees/{degree_id}/subjects")
 def read_degrees(degree_id: int, controller: Controller = Depends(get_controller)):
-    degree = controller.get_degree(degree_id)
+    degree = controller.get_degree_by_id(degree_id)
     if degree is None:
         raise HTTPException(status_code=404, detail="Degree not found")
-    return controller.get_degree_subjects(degree_id)
+    return controller.get_subjects_by_degree(degree_id)
 
