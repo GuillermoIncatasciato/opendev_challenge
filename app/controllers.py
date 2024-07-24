@@ -27,7 +27,7 @@ class Controller:
         return self.repo.get_student_by_id(student_id)
 
     def get_students(self, skip: int = 0, limit: int = 100):
-        return self.repo.get_student(skip, limit)
+        return self.repo.get_students(skip, limit)
 
     def get_students_count(self):
         return self.repo.get_students_count()
