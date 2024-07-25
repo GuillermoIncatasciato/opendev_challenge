@@ -12,7 +12,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-class Repository:
+class Dao:
 
     def __init__(self):
         self.db = SessionLocal()

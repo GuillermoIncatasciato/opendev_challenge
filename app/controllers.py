@@ -23,7 +23,8 @@ class StudentController(Controller):
             "items": [student.__dict__ for student in students],
             "skip": skip,
             "limit": limit,
-            "total": count}
+            "total": count
+        }
 
         return paginated_students
     
@@ -71,8 +72,3 @@ class SubjectController(Controller):
 
     def read_subjects(self):
         return self.service.get_subjects()
-
-
-
-    
-
