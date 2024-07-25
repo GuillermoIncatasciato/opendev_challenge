@@ -17,7 +17,6 @@ class Repository:
     def __init__(self):
         self.db = SessionLocal()
         models.Base.metadata.create_all(bind=engine)
-        print("Initialized Repository")
 
     def _add_object(self, object):
         self.db.add(object)

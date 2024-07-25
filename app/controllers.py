@@ -1,76 +1,46 @@
-from . import models, schemas
-from .database import Repository
+from fastapi import APIRouter, HTTPException, status
+from . import schemas
+from .services import get_service
 
 
-_CONTROLLER = None
 
-class Controller:
-    def __init__(self, repo: Repository):
-            self.repo = repo
+class StudentController:
 
-    def create_student(self, student: schemas.StudentBase):
-        db_student = models.Student(**student.model_dump())  
-        return self.repo.add_student(db_student)
-
-    def create_subject(self, subject: schemas.Subject):
-        db_subject = models.Subject(**subject.model_dump())
-        return self.repo.add_subject(db_subject)
-
-    def create_degree(self, degree: schemas.Degree):
-        db_degree = models.Degree(**degree.model_dump())
-        return self.repo.add_degree(db_degree)
-
-    def get_student_by_email(self, email: str):
-        return self.repo.get_student_by_email(email)
-
-    def get_student_by_id(self, student_id: int):
-        return self.repo.get_student_by_id(student_id)
-
-    def get_students(self, skip: int = 0, limit: int = 100):
-        return self.repo.get_students(skip, limit)
-
-    def get_students_count(self):
-        return self.repo.get_students_count()
-
-    def get_degrees(self):
-        return self.repo.get_degrees()
-
-    def get_degree_by_id(self, degree_id: int):
-        return self.repo.get_degree_by_id(degree_id)
-
-    def get_subjects_by_degree(self, degree_id: int):
-        return self.repo.get_subjects_by_degree(degree_id)
-
-    def get_subjects(self):
-        return self.repo.get_subjects()
-
-    def verify_subjects_ids(self, ids: set):
-        existing_ids = {subject.id for subject in self.repo.get_subjects_by_ids(ids)}
-        return ids == existing_ids
-
-    def insert_student_info(self, student_info: schemas.StudentInfoBase):
-        student_fields = {k: student_info.model_dump()[k] for k in schemas.StudentBase.model_fields.keys()}
-        db_student = self.repo.add_student(models.Student(**student_fields))
-        student_subjects = [
-            models.StudentSubject(student_id=db_student.id, **subject.model_dump())
-            for subject in student_info.subjects
-        ] 
-        
-        self.repo.assign_subjects_to_student(student_subjects)
-
-        return db_student
-
-    def get_student_info(self, student_id: int):
-        return self.repo.get_student_info(student_id)
-
-    def get_students_info(self, skip: int = 0, limit: int = 100):
-        return self.repo.get_students_info(skip, limit)
+    def __init__(self):
+        self.router = APIRouter()
+        self.service = get_service()
+        self.router.add_api_route("/students/", self.read_students, methods=["GET"])
+        self.router.add_api_route("/students/{student_id}", self.read_student, methods=["GET"])
+        self.router.add_api_route("/students/", self.create_student, methods=["POST"], status_code=status.HTTP_201_CREATED)
 
 
-def get_controller():
-    global _CONTROLLER
-    if _CONTROLLER is None:
-        _CONTROLLER = Controller(Repository())
-    return _CONTROLLER
+    def read_students(self, skip: int = 0, limit: int = 100):
+        students = self.service.get_students_info(skip=skip, limit=limit)
+        count = self.service.get_students_count()   
+        paginated_students = {
+            "items": [student.__dict__ for student in students],
+            "skip": skip,
+            "limit": limit,
+            "total": count}
 
+        return paginated_students
     
+    def read_student(self, student_id: int):
+        student = self.service.get_student_info(student_id)
+        if student is None:
+            raise HTTPException(status_code=404, detail="Student not found")
+        return student
+
+
+    def create_student(self, student_info: schemas.StudentInfoBase):
+        student_with_same_email = self.service.get_student_by_email(email=student_info.email)
+        if student_with_same_email:
+            raise HTTPException(status_code=400, detail="Email already registred")
+        
+        subjects_ids = {s.subject_id for s in student_info.subjects}
+        if not self.service.verify_subjects_ids(subjects_ids):
+            raise HTTPException(status_code=400, detail="Invalid Subject ids")
+        
+        student = self.service.insert_student_info(student_info)
+
+        return {"student_id": student.id}

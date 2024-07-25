@@ -1,5 +1,5 @@
 from app import schemas
-from app.controllers import get_controller
+from app.services import get_service
 
 degree_subjects = {
     "Ingeniería en Computación": [
@@ -284,16 +284,16 @@ students = [
 
 
 def create_data(degree_subjects, students):
-    controller = get_controller()
+    service = get_service()
     for degree, subjects in degree_subjects.items():
 
-        degree_db = controller.create_degree(schemas.Degree(name=degree))
+        degree_db = service.create_degree(schemas.Degree(name=degree))
 
         for subject in subjects: 
-            controller.create_subject(schemas.Subject(name=subject, degree_id=degree_db.id))
+            service.create_subject(schemas.Subject(name=subject, degree_id=degree_db.id))
 
     for student in students:
-        controller.insert_student_info(schemas.StudentInfoBase(**student))
+        service.insert_student_info(schemas.StudentInfoBase(**student))
 
     print("Data loaded successfully.")
 
