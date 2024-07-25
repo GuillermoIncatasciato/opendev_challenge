@@ -22,7 +22,7 @@ class Dao:
 
     def add_subject(self, subject: models.Subject):
         return self._add_object(subject)
-    
+
     def assign_subjects_to_student(self, student_subjects: list[models.StudentSubject]):
         for student_subject in student_subjects:
             self.db.add(student_subject)
@@ -32,10 +32,16 @@ class Dao:
         return self._add_object(degree)
 
     def get_student_by_email(self, email: str):
-        return self.db.query(models.Student).filter(models.Student.email == email).first()
+        return (
+            self.db.query(models.Student).filter(models.Student.email == email).first()
+        )
 
     def get_student_by_id(self, student_id: int):
-        return self.db.query(models.Student).filter(models.Student.id == student_id).first()
+        return (
+            self.db.query(models.Student)
+            .filter(models.Student.id == student_id)
+            .first()
+        )
 
     def get_students(self, skip: int = 0, limit: int = 100):
         return self.db.query(models.Student).offset(skip).limit(limit).all()
@@ -47,19 +53,36 @@ class Dao:
         return self.db.query(models.Degree).all()
 
     def get_degree_by_id(self, degree_id: int):
-        return self.db.query(models.Degree).filter(models.Degree.id == degree_id).first()
+        return (
+            self.db.query(models.Degree).filter(models.Degree.id == degree_id).first()
+        )
 
     def get_subjects_by_degree(self, degree_id: int):
-        return self.db.query(models.Subject).filter(models.Subject.degree_id == degree_id).all()
+        return (
+            self.db.query(models.Subject)
+            .filter(models.Subject.degree_id == degree_id)
+            .all()
+        )
 
     def get_subjects(self):
         return self.db.query(models.Subject).all()
-    
+
     def get_subjects_by_ids(self, ids: set):
         return self.db.query(models.Subject).filter(models.Subject.id.in_(ids)).all()
-    
+
     def get_student_info(self, student_id: int):
-        return self.db.query(models.Student).options(joinedload(models.Student.subjects)).filter(models.Student.id == student_id).first()
+        return (
+            self.db.query(models.Student)
+            .options(joinedload(models.Student.subjects))
+            .filter(models.Student.id == student_id)
+            .first()
+        )
 
     def get_students_info(self, skip: int = 0, limit: int = 100):
-        return self.db.query(models.Student).options(joinedload(models.Student.subjects)).offset(skip).limit(limit).all()
+        return (
+            self.db.query(models.Student)
+            .options(joinedload(models.Student.subjects))
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )

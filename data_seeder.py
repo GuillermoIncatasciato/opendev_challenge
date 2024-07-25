@@ -8,57 +8,51 @@ degree_subjects = {
         "Bases de Datos",
         "Programación Funcional",
         "Sistemas Operativos",
-        "Redes de Computadoras"
+        "Redes de Computadoras",
     ],
-    "Medicina": [
-        "Anatomía",
-        "Fisiología",
-        "Bioquímica",
-        "Farmacología",
-        "Patología"
-    ],
+    "Medicina": ["Anatomía", "Fisiología", "Bioquímica", "Farmacología", "Patología"],
     "Ingeniería Civil": [
         "Mecánica de Suelos",
         "Estructuras",
         "Hidráulica",
         "Topografía",
-        "Construcción"
+        "Construcción",
     ],
     "Derecho": [
         "Derecho Constitucional",
         "Derecho Penal",
         "Derecho Civil",
         "Derecho Administrativo",
-        "Derecho Internacional"
+        "Derecho Internacional",
     ],
     "Psicología": [
         "Psicología General",
         "Psicología del Desarrollo",
         "Psicología Clínica",
         "Psicología Educativa",
-        "Psicología Social"
+        "Psicología Social",
     ],
     "Administración de Empresas": [
         "Fundamentos de Administración",
         "Contabilidad Financiera",
         "Marketing",
         "Finanzas Corporativas",
-        "Gestión de Recursos Humanos"
+        "Gestión de Recursos Humanos",
     ],
     "Biología": [
         "Biología Celular",
         "Genética",
         "Ecología",
         "Microbiología",
-        "Biología Molecular"
+        "Biología Molecular",
     ],
     "Química": [
         "Química General",
         "Química Orgánica",
         "Química Inorgánica",
         "Fisicoquímica",
-        "Química Analítica"
-    ]
+        "Química Analítica",
+    ],
 }
 students = [
     {
@@ -69,8 +63,8 @@ students = [
         "subjects": [
             {"subject_id": 1, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 5, "enrollment_year": 2021, "times_taken": 1},
-            {"subject_id": 10, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 10, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Carlos Pérez",
@@ -80,8 +74,8 @@ students = [
         "subjects": [
             {"subject_id": 2, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 6, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 15, "enrollment_year": 2022, "times_taken": 1}
-        ]
+            {"subject_id": 15, "enrollment_year": 2022, "times_taken": 1},
+        ],
     },
     {
         "name": "Beatriz López",
@@ -91,8 +85,8 @@ students = [
         "subjects": [
             {"subject_id": 3, "enrollment_year": 2019, "times_taken": 3},
             {"subject_id": 8, "enrollment_year": 2021, "times_taken": 1},
-            {"subject_id": 20, "enrollment_year": 2020, "times_taken": 2}
-        ]
+            {"subject_id": 20, "enrollment_year": 2020, "times_taken": 2},
+        ],
     },
     {
         "name": "David Gómez",
@@ -102,8 +96,8 @@ students = [
         "subjects": [
             {"subject_id": 4, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 12, "enrollment_year": 2019, "times_taken": 3},
-            {"subject_id": 25, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 25, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Elena Rodríguez",
@@ -113,8 +107,8 @@ students = [
         "subjects": [
             {"subject_id": 7, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 14, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 30, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 30, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Fernando Ramírez",
@@ -124,8 +118,8 @@ students = [
         "subjects": [
             {"subject_id": 9, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 16, "enrollment_year": 2019, "times_taken": 3},
-            {"subject_id": 35, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 35, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Gabriela Hernández",
@@ -135,8 +129,8 @@ students = [
         "subjects": [
             {"subject_id": 11, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 18, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 40, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 40, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Hugo Vargas",
@@ -146,8 +140,8 @@ students = [
         "subjects": [
             {"subject_id": 13, "enrollment_year": 2019, "times_taken": 3},
             {"subject_id": 19, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 29, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 29, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Isabel Torres",
@@ -157,8 +151,8 @@ students = [
         "subjects": [
             {"subject_id": 17, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 22, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 34, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 34, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Jorge Ruiz",
@@ -168,8 +162,8 @@ students = [
         "subjects": [
             {"subject_id": 21, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 24, "enrollment_year": 2019, "times_taken": 3},
-            {"subject_id": 36, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 36, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Karina Morales",
@@ -179,8 +173,8 @@ students = [
         "subjects": [
             {"subject_id": 26, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 27, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 33, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 33, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Luis Rojas",
@@ -190,8 +184,8 @@ students = [
         "subjects": [
             {"subject_id": 23, "enrollment_year": 2019, "times_taken": 3},
             {"subject_id": 28, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 32, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 32, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "María Castillo",
@@ -201,8 +195,8 @@ students = [
         "subjects": [
             {"subject_id": 31, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 37, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 38, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 38, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Natalia Soto",
@@ -212,8 +206,8 @@ students = [
         "subjects": [
             {"subject_id": 2, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 5, "enrollment_year": 2019, "times_taken": 3},
-            {"subject_id": 11, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 11, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Oscar Gil",
@@ -223,8 +217,8 @@ students = [
         "subjects": [
             {"subject_id": 6, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 9, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 14, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 14, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Paula Ramírez",
@@ -234,8 +228,8 @@ students = [
         "subjects": [
             {"subject_id": 4, "enrollment_year": 2019, "times_taken": 3},
             {"subject_id": 10, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 19, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 19, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Ricardo Vargas",
@@ -245,8 +239,8 @@ students = [
         "subjects": [
             {"subject_id": 3, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 8, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 13, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 13, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Silvia Ortiz",
@@ -256,8 +250,8 @@ students = [
         "subjects": [
             {"subject_id": 7, "enrollment_year": 2019, "times_taken": 3},
             {"subject_id": 12, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 17, "enrollment_year": 2021, "times_taken": 1}
-        ]
+            {"subject_id": 17, "enrollment_year": 2021, "times_taken": 1},
+        ],
     },
     {
         "name": "Tomás Pérez",
@@ -267,8 +261,8 @@ students = [
         "subjects": [
             {"subject_id": 20, "enrollment_year": 2021, "times_taken": 1},
             {"subject_id": 22, "enrollment_year": 2020, "times_taken": 2},
-            {"subject_id": 25, "enrollment_year": 2019, "times_taken": 3}
-        ]
+            {"subject_id": 25, "enrollment_year": 2019, "times_taken": 3},
+        ],
     },
     {
         "name": "Úrsula Herrera",
@@ -278,9 +272,9 @@ students = [
         "subjects": [
             {"subject_id": 23, "enrollment_year": 2020, "times_taken": 2},
             {"subject_id": 24, "enrollment_year": 2019, "times_taken": 3},
-            {"subject_id": 26, "enrollment_year": 2021, "times_taken": 1}
-        ]
-    }
+            {"subject_id": 26, "enrollment_year": 2021, "times_taken": 1},
+        ],
+    },
 ]
 
 
@@ -290,14 +284,15 @@ def create_data(degree_subjects, students):
 
         degree_db = service.create_degree(schemas.Degree(name=degree))
 
-        for subject in subjects: 
-            service.create_subject(schemas.Subject(name=subject, degree_id=degree_db.id))
+        for subject in subjects:
+            service.create_subject(
+                schemas.Subject(name=subject, degree_id=degree_db.id)
+            )
 
     for student in students:
         service.insert_student_info(schemas.StudentInfoBase(**student))
 
     print("Data loaded successfully.")
-
 
 
 create_data(degree_subjects, students)

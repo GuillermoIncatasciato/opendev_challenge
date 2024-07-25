@@ -7,7 +7,7 @@ class Service:
         self.dao = dao
 
     def create_student(self, student: schemas.StudentBase):
-        db_student = models.Student(**student.model_dump())  
+        db_student = models.Student(**student.model_dump())
         return self.dao.add_student(db_student)
 
     def create_subject(self, subject: schemas.Subject):
@@ -47,13 +47,16 @@ class Service:
         return ids == existing_ids
 
     def insert_student_info(self, student_info: schemas.StudentInfoBase):
-        student_fields = {k: student_info.model_dump()[k] for k in schemas.StudentBase.model_fields.keys()}
+        student_fields = {
+            k: student_info.model_dump()[k]
+            for k in schemas.StudentBase.model_fields.keys()
+        }
         db_student = self.dao.add_student(models.Student(**student_fields))
         student_subjects = [
             models.StudentSubject(student_id=db_student.id, **subject.model_dump())
             for subject in student_info.subjects
-        ] 
-        
+        ]
+
         self.dao.assign_subjects_to_student(student_subjects)
 
         return db_student
@@ -63,6 +66,3 @@ class Service:
 
     def get_students_info(self, skip: int = 0, limit: int = 100):
         return self.dao.get_students_info(skip, limit)
-
-
-    

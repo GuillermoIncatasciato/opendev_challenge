@@ -6,7 +6,7 @@ from .daos import Dao
 service = Service(Dao())
 router = APIRouter()
 
-student_controller = StudentController(service, router) 
+student_controller = StudentController(service, router)
 degree_controller = DegreeController(service, router)
 subject_controller = SubjectController(service, router)
 

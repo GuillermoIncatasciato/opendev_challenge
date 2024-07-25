@@ -7,8 +7,8 @@ class Controller:
         self.service = service
         self.router = router
 
-class StudentController(Controller):
 
+class StudentController(Controller):
     def __init__(self, service, router):
         super().__init__(service, router)
         self.router.add_api_route("/students/", self.read_students, methods=["GET"])
@@ -17,7 +17,7 @@ class StudentController(Controller):
 
     def read_students(self, skip: int = 0, limit: int = 100):
         students = self.service.get_students_info(skip=skip, limit=limit)
-        count = self.service.get_students_count()   
+        count = self.service.get_students_count()
         paginated_students = {
             "items": [student.__dict__ for student in students],
             "skip": skip,
@@ -26,7 +26,7 @@ class StudentController(Controller):
         }
 
         return paginated_students
-    
+
     def read_student(self, student_id: int):
         student = self.service.get_student_info(student_id)
         if student is None:
@@ -37,19 +37,18 @@ class StudentController(Controller):
         student_with_same_email = self.service.get_student_by_email(email=student_info.email)
         if student_with_same_email:
             raise HTTPException(status_code=400, detail="Email already registred")
-        
+
         subjects_ids = {s.subject_id for s in student_info.subjects}
         if not self.service.verify_subjects_ids(subjects_ids):
             raise HTTPException(status_code=400, detail="Invalid Subject ids")
-        
+
         student = self.service.insert_student_info(student_info)
 
         return {"student_id": student.id}
 
 
 class DegreeController(Controller):
-
-    def __init__(self,service, router):
+    def __init__(self, service, router):
         super().__init__(service, router)
         self.router.add_api_route("/degrees/", self.read_degrees, methods=["GET"])
         self.router.add_api_route("/degrees/{degree_id}/subjects", self.read_subjects_by_degree, methods=["GET"])
@@ -65,7 +64,7 @@ class DegreeController(Controller):
 
 
 class SubjectController(Controller):
-    def __init__(self,service, router):
+    def __init__(self, service, router):
         super().__init__(service, router)
         self.router.add_api_route("/subjects/", self.read_subjects, methods=["GET"])
 

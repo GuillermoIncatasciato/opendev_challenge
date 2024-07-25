@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, declarative_base
 
+
 Base = declarative_base()
 
 
@@ -23,16 +24,18 @@ class Subject(Base):
     name = Column(String, index=True)
     degree_id = Column(Integer, ForeignKey("degrees.id"))
 
+
 class Degree(Base):
     __tablename__ = "degrees"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, index=True)
 
+
 class StudentSubject(Base):
     __tablename__ = "students_subjects"
 
-    student_id = Column(ForeignKey('students.id'), primary_key=True)
-    subject_id = Column(ForeignKey('subjects.id'), primary_key=True)
+    student_id = Column(ForeignKey("students.id"), primary_key=True)
+    subject_id = Column(ForeignKey("subjects.id"), primary_key=True)
     times_taken = Column(Integer)
     enrollment_year = Column(Integer)

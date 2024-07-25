@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "sleeping for 3 seconds"
+echo "Sleeping for 3 seconds"
 sleep 3;
-echo "starting server fastapi"
+echo "Starting FastAPI Server"
 fastapi run app/main.py --port 80
