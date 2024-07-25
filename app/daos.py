@@ -1,22 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
-import os
 from . import models
-
-POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-
-SQLALCHEMY_DATABASE_URL = f"postgresql+pg8000://postgres:{POSTGRES_PASSWORD}@db/postgres"
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+from .db_config import SQLALCHEMY_DATABASE_URL
 
 
 class Dao:
-
     def __init__(self):
-        self.db = SessionLocal()
+        engine = create_engine(SQLALCHEMY_DATABASE_URL)
+        SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         models.Base.metadata.create_all(bind=engine)
+        self.db = SessionLocal()
 
     def _add_object(self, object):
         self.db.add(object)

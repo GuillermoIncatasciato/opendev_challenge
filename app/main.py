@@ -1,10 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from .controllers import StudentController, DegreeController, SubjectController
+from .services import Service
+from .daos import Dao
 
+service = Service(Dao())
+router = APIRouter()
 
-student_controller = StudentController()
-degree_controller = DegreeController()
-subject_controller = SubjectController()
+student_controller = StudentController(service, router) 
+degree_controller = DegreeController(service, router)
+subject_controller = SubjectController(service, router)
 
 app = FastAPI()
 

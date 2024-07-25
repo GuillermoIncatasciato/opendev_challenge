@@ -1,5 +1,6 @@
 from app import schemas
-from app.services import get_service
+from app.services import Service
+from app.daos import Dao
 
 degree_subjects = {
     "Ingeniería en Computación": [
@@ -284,7 +285,7 @@ students = [
 
 
 def create_data(degree_subjects, students):
-    service = get_service()
+    service = Service(Dao())
     for degree, subjects in degree_subjects.items():
 
         degree_db = service.create_degree(schemas.Degree(name=degree))

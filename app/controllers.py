@@ -1,17 +1,16 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import HTTPException, status
 from . import schemas
-from .services import get_service
 
 
 class Controller:
-    def __init__(self):
-        self.router = APIRouter()
-        self.service = get_service()
+    def __init__(self, service, router):
+        self.service = service
+        self.router = router
 
 class StudentController(Controller):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, service, router):
+        super().__init__(service, router)
         self.router.add_api_route("/students/", self.read_students, methods=["GET"])
         self.router.add_api_route("/students/{student_id}", self.read_student, methods=["GET"])
         self.router.add_api_route("/students/", self.create_student, methods=["POST"], status_code=status.HTTP_201_CREATED)
@@ -50,8 +49,8 @@ class StudentController(Controller):
 
 class DegreeController(Controller):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self,service, router):
+        super().__init__(service, router)
         self.router.add_api_route("/degrees/", self.read_degrees, methods=["GET"])
         self.router.add_api_route("/degrees/{degree_id}/subjects", self.read_subjects_by_degree, methods=["GET"])
 
@@ -66,8 +65,8 @@ class DegreeController(Controller):
 
 
 class SubjectController(Controller):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,service, router):
+        super().__init__(service, router)
         self.router.add_api_route("/subjects/", self.read_subjects, methods=["GET"])
 
     def read_subjects(self):

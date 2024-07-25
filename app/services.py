@@ -2,11 +2,9 @@ from . import models, schemas
 from .daos import Dao
 
 
-_SERVICE = None
-
 class Service:
     def __init__(self, dao: Dao):
-            self.dao = dao
+        self.dao = dao
 
     def create_student(self, student: schemas.StudentBase):
         db_student = models.Student(**student.model_dump())  
@@ -66,11 +64,5 @@ class Service:
     def get_students_info(self, skip: int = 0, limit: int = 100):
         return self.dao.get_students_info(skip, limit)
 
-
-def get_service():
-    global _SERVICE
-    if _SERVICE is None:
-        _SERVICE = Service(Dao())
-    return _SERVICE
 
     
