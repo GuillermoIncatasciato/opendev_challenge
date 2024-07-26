@@ -32,6 +32,14 @@ Este es un proyecto de API REST construido con [FastAPI](https://fastapi.tiangol
     docker compose exec -it backend python data_seeder.py
     ```
 
+## Ejecutar Tests Unitarios
+
+Para correr los tests unitarios dentro del container, puedes utilizar el siguiente comando:
+
+```bash
+docker compose exec -it backend pytest tests
+```
+
 ## Uso
 
 Una vez que los contenedores estén corriendo, la API estará disponible en `http://localhost:80`.
